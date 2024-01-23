@@ -45,7 +45,7 @@ def create_calendar(year, month, with_isoweek=False, start_from_Sun=False, lang=
 
 
 def print_calendar(year, month, with_isoweek=False, start_from_Sun=False, lang="en"):
-    print('# {} {}\n'.format(calendar.month_name[month], year+2000))
+    print('# {} {}\n'.format(calendar.month_name[month], year + 2000 if year <= 2000 else year))
     print(create_calendar(year, month, with_isoweek, start_from_Sun, lang))
     print("***")
 
