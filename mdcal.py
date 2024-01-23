@@ -45,8 +45,9 @@ def create_calendar(year, month, with_isoweek=False, start_from_Sun=False, lang=
 
 
 def print_calendar(year, month, with_isoweek=False, start_from_Sun=False, lang="en"):
-    print('{}/{}\n'.format(year, month))
+    print('# {} {}\n'.format(calendar.month_name[month], year+2000))
     print(create_calendar(year, month, with_isoweek, start_from_Sun, lang))
+    print("***")
 
 
 def get_dict(lang='en'):
