@@ -3,7 +3,6 @@ import calendar
 from datetime import datetime
 import sys
 
-
 def create_calendar(year, month, with_isoweek=False, start_from_Sun=False, lang="en"):
     firstweekday = 6 if start_from_Sun else 0
 
@@ -22,15 +21,27 @@ def create_calendar(year, month, with_isoweek=False, start_from_Sun=False, lang=
     mdstr += '|' + '|'.join(colnames) + '|' + '\n'
     mdstr += '|' + '|'.join([':-:' for _ in range(len(colnames))]) + '|' + '\n'
 
-    for days in cal.monthdatescalendar(year, month):
-        if with_isoweek:
-            isoweek = days[0].isocalendar()[1]
-            mdstr += '|' + str(isoweek) + '|' + \
-                '|'.join([str(d.day) for d in days]) + '|' + '\n'
-        else:
-            mdstr += '|' + '|'.join([str(d.day) for d in days]) + '|' + '\n'
+    headings = []
 
-    return mdstr
+    for week in cal.monthdayscalendar(year, month):
+        row = '|'
+        for day in week:
+            if with_isoweek and day != 0:
+                isoweek = datetime(year, month, day).isocalendar()[1]
+                row += '[{}]({}#{:04d}-{:02d}-{:02d})|'.format(
+                    day, '#' + str(isoweek), year, month, day)
+                headings.append('## Week {} - {:04d}-{:02d}-{:02d}'.format(
+                    isoweek, year, month, day))
+            elif day != 0:
+                row += '[{}](#{:02d}-{:02d}-{:02d})|'.format(
+                    day, day, month, year)
+                headings.append('## {:02d}-{:02d}-{:02d}'.format(
+                    day, month, year))
+            else:
+                row += '|'
+        mdstr += row + '\n'
+
+    return mdstr + '\n'.join(headings)
 
 
 def print_calendar(year, month, with_isoweek=False, start_from_Sun=False, lang="en"):
@@ -62,7 +73,7 @@ if __name__ == "__main__":
     elif len(argv) == 2:
         year = int(argv[1])
         for month in range(1, 13):
-            print_calendar(year, month, with_isoweek=True)
+            print_calendar(year, month, with_isoweek=False)
     elif len(argv) == 3:
         year, month = [int(a) for a in argv[1:3]]
         print_calendar(year, month)
