@@ -4,7 +4,7 @@ Generate calendar in Markdown table. Written in Python3.
 
 ## Usage
 
-Generate calendar of current month:
+### Generate calendar of current month:
 
 Input:
 ```sh
@@ -56,7 +56,7 @@ Output:
 ***
 ```
 
-Generate calendar of specified year:
+### Generate calendar of specified year:
 
 Input:
 ```sh
@@ -554,7 +554,7 @@ Output:
 ***
 ```
 
-Generate calendar of specified month:
+### Generate calendar of specified month:
 
 Input:
 ```sh
@@ -605,7 +605,7 @@ Output
 ***
 ```
 
-## Rendered Example
+## Rendered Example:
 
 # December 2023
 
